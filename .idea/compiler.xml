@@ -13,4 +13,12 @@
       </profile>
     </annotationProcessing>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="seeyoo-admin" options="-parameters" />
+      <module name="seeyoo-common" options="-parameters" />
+      <module name="seeyoo-framework" options="-parameters" />
+      <module name="seeyoo-system" options="-parameters" />
+    </option>
+  </component>
 </project>
