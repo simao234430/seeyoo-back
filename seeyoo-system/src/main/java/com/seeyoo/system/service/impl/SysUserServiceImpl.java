@@ -5,8 +5,10 @@ import com.seeyoo.common.constant.UserConstants;
 import com.seeyoo.common.core.domain.entity.SysRole;
 import com.seeyoo.common.core.domain.entity.SysUser;
 import com.seeyoo.common.exception.CustomException;
+import com.seeyoo.common.exception.ServiceException;
 import com.seeyoo.common.utils.SecurityUtils;
 import com.seeyoo.common.utils.StringUtils;
+import com.seeyoo.common.utils.spring.SpringUtils;
 import com.seeyoo.system.domain.SysPost;
 import com.seeyoo.system.domain.SysUserPost;
 import com.seeyoo.system.domain.SysUserRole;
@@ -52,6 +54,40 @@ public class SysUserServiceImpl implements ISysUserService
 
     @Autowired
     private ISysConfigService configService;
+
+    /**
+     * 用户授权角色
+     *
+     * @param userId 用户ID
+     * @param roleIds 角色组
+     */
+    @Override
+    @Transactional
+    public void insertUserAuth(Long userId, Long[] roleIds)
+    {
+        userRoleMapper.deleteUserRoleByUserId(userId);
+        insertUserRole(userId, roleIds);
+    }
+
+    /**
+     * 校验用户是否有数据权限
+     *
+     * @param userId 用户id
+     */
+    @Override
+    public void checkUserDataScope(Long userId)
+    {
+        if (!SysUser.isAdmin(SecurityUtils.getUserId()))
+        {
+            SysUser user = new SysUser();
+            user.setUserId(userId);
+            List<SysUser> users = SpringUtils.getAopProxy(this).selectUserList(user);
+            if (StringUtils.isEmpty(users))
+            {
+                throw new ServiceException("没有权限访问用户数据！");
+            }
+        }
+    }
 
     /**
      * 根据条件分页查询用户列表
@@ -304,6 +340,29 @@ public class SysUserServiceImpl implements ISysUserService
         return userMapper.resetUserPwd(userName, password);
     }
 
+
+    /**
+     * 新增用户角色信息
+     *
+     * @param userId 用户ID
+     * @param roleIds 角色组
+     */
+    public void insertUserRole(Long userId, Long[] roleIds)
+    {
+        if (StringUtils.isNotEmpty(roleIds))
+        {
+            // 新增用户与角色管理
+            List<SysUserRole> list = new ArrayList<SysUserRole>(roleIds.length);
+            for (Long roleId : roleIds)
+            {
+                SysUserRole ur = new SysUserRole();
+                ur.setUserId(userId);
+                ur.setRoleId(roleId);
+                list.add(ur);
+            }
+            userRoleMapper.batchUserRole(list);
+        }
+    }
     /**
      * 新增用户角色信息
      * 

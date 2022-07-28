@@ -11,6 +11,7 @@
 
     <artifactId>seeyoo-system</artifactId>
     <dependencies>
+
         <dependency>
             <groupId>com.seeyoo</groupId>
             <artifactId>seeyoo-common</artifactId>

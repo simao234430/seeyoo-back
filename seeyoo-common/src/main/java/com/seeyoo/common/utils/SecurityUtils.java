@@ -3,6 +3,7 @@ package com.seeyoo.common.utils;
 import com.seeyoo.common.constant.HttpStatus;
 import com.seeyoo.common.core.domain.model.LoginUser;
 import com.seeyoo.common.exception.CustomException;
+import com.seeyoo.common.exception.ServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,6 +15,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 public class SecurityUtils
 {
+    /**
+     * 用户ID
+     **/
+    public static Long getUserId()
+    {
+        try
+        {
+            return getLoginUser().getUserId();
+        }
+        catch (Exception e)
+        {
+            throw new ServiceException("获取用户ID异常", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
     /**
      * 获取用户账户
      **/

@@ -49,6 +49,22 @@ public class SysConfigServiceImpl implements ISysConfigService
     }
 
     /**
+     * 获取验证码开关
+     *
+     * @return true开启，false关闭
+     */
+    @Override
+    public boolean selectCaptchaOnOff()
+    {
+        String captchaOnOff = selectConfigByKey("sys.account.captchaOnOff");
+        if (StringUtils.isEmpty(captchaOnOff))
+        {
+            return true;
+        }
+        return Convert.toBool(captchaOnOff);
+    }
+
+    /**
      * 查询参数配置信息
      * 
      * @param configId 参数配置ID

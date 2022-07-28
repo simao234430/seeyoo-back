@@ -103,6 +103,14 @@ public class ServletUtils
     }
 
     /**
+     * 获取Boolean参数
+     */
+    public static Boolean getParameterToBool(String name)
+    {
+        return Convert.toBool(getRequest().getParameter(name));
+    }
+
+    /**
      * 是否是Ajax异步请求
      * 
      * @param request

@@ -11,7 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 //@ComponentScan(basePackages = {"com.seeyoo"})
-@MapperScan("com.seeyoo")
+@MapperScan("com.seeyoo.**.mapper")
 @EnableSwagger2
 public class YooApplication {
 

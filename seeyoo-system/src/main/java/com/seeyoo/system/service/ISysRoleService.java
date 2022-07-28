@@ -13,6 +13,14 @@ import java.util.Set;
 public interface ISysRoleService
 {
     /**
+     * 根据用户ID查询角色列表
+     *
+     * @param userId 用户ID
+     * @return 角色列表
+     */
+    public List<SysRole> selectRolesByUserId(Long userId);
+
+    /**
      * 根据条件分页查询角色数据
      * 
      * @param role 角色信息

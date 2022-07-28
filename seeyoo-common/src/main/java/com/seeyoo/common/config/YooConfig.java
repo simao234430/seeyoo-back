@@ -108,4 +108,12 @@ public class YooConfig
     {
         return getProfile() + "/upload";
     }
+
+    /**
+     * 获取导入上传路径
+     */
+    public static String getImportPath()
+    {
+        return getProfile() + "/import";
+    }
 }

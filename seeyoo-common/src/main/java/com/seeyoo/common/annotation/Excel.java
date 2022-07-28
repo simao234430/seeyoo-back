@@ -1,20 +1,23 @@
 package com.seeyoo.common.annotation;
 
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.math.BigDecimal;
+import com.seeyoo.common.utils.poi.ExcelHandlerAdapter;
 
 /**
  * 自定义导出Excel数据注解
- * 
- * @author yoo
+ *
+ * @author ruoyi
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Excel
-{
+public @interface Excel {
     /**
      * 导出时在excel中排序
      */
@@ -54,11 +57,6 @@ public @interface Excel
      * BigDecimal 舍入规则 默认:BigDecimal.ROUND_HALF_EVEN
      */
     public int roundingMode() default BigDecimal.ROUND_HALF_EVEN;
-
-    /**
-     * 导出类型（0数字 1字符串）
-     */
-    public ColumnType cellType() default ColumnType.STRING;
 
     /**
      * 导出时在excel中每个列的高度 单位为字符
@@ -106,22 +104,39 @@ public @interface Excel
     public boolean isStatistics() default false;
 
     /**
-     * 导出字段对齐方式（0：默认；1：靠左；2：居中；3：靠右）
+     * 导出类型（0数字 1字符串）
      */
-    Align align() default Align.AUTO;
+    public ColumnType cellType() default ColumnType.STRING;
 
-    public enum Align
-    {
+    /**
+     * 导出字体颜色
+     */
+    public IndexedColors color() default IndexedColors.BLACK;
+
+    /**
+     * 导出字段对齐方式
+     */
+    public HorizontalAlignment align() default HorizontalAlignment.CENTER;
+
+    /**
+     * 自定义数据处理器
+     */
+    public Class<?> handler() default ExcelHandlerAdapter.class;
+
+    /**
+     * 自定义数据处理器参数
+     */
+    public String[] args() default {};
+
+    public enum Align {
         AUTO(0), LEFT(1), CENTER(2), RIGHT(3);
         private final int value;
 
-        Align(int value)
-        {
+        Align(int value) {
             this.value = value;
         }
 
-        public int value()
-        {
+        public int value() {
             return this.value;
         }
     }
@@ -131,34 +146,28 @@ public @interface Excel
      */
     Type type() default Type.ALL;
 
-    public enum Type
-    {
+    public enum Type {
         ALL(0), EXPORT(1), IMPORT(2);
         private final int value;
 
-        Type(int value)
-        {
+        Type(int value) {
             this.value = value;
         }
 
-        public int value()
-        {
+        public int value() {
             return this.value;
         }
     }
 
-    public enum ColumnType
-    {
+    public enum ColumnType {
         NUMERIC(0), STRING(1), IMAGE(2);
         private final int value;
 
-        ColumnType(int value)
-        {
+        ColumnType(int value) {
             this.value = value;
         }
 
-        public int value()
-        {
+        public int value() {
             return this.value;
         }
     }

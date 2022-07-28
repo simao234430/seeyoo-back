@@ -12,6 +12,12 @@ import java.util.List;
 public interface ISysConfigService
 {
     /**
+     * 获取验证码开关
+     *
+     * @return true开启，false关闭
+     */
+    public boolean selectCaptchaOnOff();
+    /**
      * 查询参数配置信息
      * 
      * @param configId 参数配置ID

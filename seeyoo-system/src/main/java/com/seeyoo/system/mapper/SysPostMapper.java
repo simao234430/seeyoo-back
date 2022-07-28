@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface SysPostMapper
 {
+
+
     /**
      * 查询岗位数据集合
      * 
@@ -40,7 +42,7 @@ public interface SysPostMapper
      * @param userId 用户ID
      * @return 选中岗位ID列表
      */
-    public List<Integer> selectPostListByUserId(Long userId);
+    public List<Long> selectPostListByUserId(Long userId);
 
     /**
      * 查询用户所属岗位组

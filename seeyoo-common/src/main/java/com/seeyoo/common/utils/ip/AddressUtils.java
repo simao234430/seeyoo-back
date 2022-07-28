@@ -2,7 +2,7 @@ package com.seeyoo.common.utils.ip;
 
 import com.seeyoo.common.utils.StringUtils;
 import com.seeyoo.common.utils.http.HttpUtils;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.seeyoo.common.config.YooConfig;
 import com.seeyoo.common.constant.Constants;
 import org.slf4j.Logger;

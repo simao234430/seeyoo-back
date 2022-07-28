@@ -11,6 +11,21 @@ import java.util.List;
  */
 public interface ISysUserService
 {
+
+    /**
+     * 用户授权角色
+     *
+     * @param userId 用户ID
+     * @param roleIds 角色组
+     */
+    public void insertUserAuth(Long userId, Long[] roleIds);
+
+    /**
+     * 校验用户是否有数据权限
+     *
+     * @param userId 用户id
+     */
+    public void checkUserDataScope(Long userId);
     /**
      * 根据条件分页查询用户列表
      * 
