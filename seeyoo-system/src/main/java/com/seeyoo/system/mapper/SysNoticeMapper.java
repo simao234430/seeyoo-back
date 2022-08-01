@@ -1,7 +1,8 @@
-package com.ruoyi.system.mapper;
+package com.seeyoo.system.mapper;
+
+import com.seeyoo.system.domain.SysNotice;
 
 import java.util.List;
-import com.ruoyi.system.domain.SysNotice;
 
 /**
  * 通知公告表 数据层

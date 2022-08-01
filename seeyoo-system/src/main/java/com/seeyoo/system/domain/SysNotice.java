@@ -1,11 +1,12 @@
-package com.ruoyi.system.domain;
+package com.seeyoo.system.domain;
+
+import com.seeyoo.common.core.domain.BaseEntity;
+import com.seeyoo.common.xss.Xss;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import com.ruoyi.common.core.domain.BaseEntity;
-import com.ruoyi.common.xss.Xss;
 
 /**
  * 通知公告表 sys_notice

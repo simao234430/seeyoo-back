@@ -1,11 +1,12 @@
-package com.ruoyi.system.service.impl;
+package com.seeyoo.system.service.impl;
 
-import java.util.List;
+import com.seeyoo.system.domain.SysNotice;
+import com.seeyoo.system.mapper.SysNoticeMapper;
+import com.seeyoo.system.service.ISysNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.system.domain.SysNotice;
-import com.ruoyi.system.mapper.SysNoticeMapper;
-import com.ruoyi.system.service.ISysNoticeService;
+
+import java.util.List;
 
 /**
  * 公告 服务层实现

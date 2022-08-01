@@ -7,11 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 //@ComponentScan(basePackages = {"com.seeyoo"})
-@MapperScan("com.seeyoo.**.mapper")
+@MapperScan({"com.seeyoo.**.mapper","com.seeyoo.quartz.**.mapper"})
 @EnableSwagger2
 public class YooApplication {
 

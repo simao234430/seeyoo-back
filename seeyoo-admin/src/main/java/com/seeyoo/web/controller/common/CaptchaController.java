@@ -1,10 +1,9 @@
 package com.seeyoo.web.controller.common;
 
-import com.seeyoo.common.utils.RedisCache;
 import com.google.code.kaptcha.Producer;
 import com.seeyoo.common.constant.Constants;
 import com.seeyoo.common.core.domain.AjaxResult;
-
+import com.seeyoo.common.utils.RedisCache;
 import com.seeyoo.common.utils.sign.Base64;
 import com.seeyoo.common.utils.uuid.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;

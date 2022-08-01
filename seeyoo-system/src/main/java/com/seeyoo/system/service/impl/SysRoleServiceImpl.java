@@ -1,13 +1,17 @@
 package com.seeyoo.system.service.impl;
 
+import com.seeyoo.common.utils.spring.SpringUtils;
 import com.seeyoo.common.annotation.DataScope;
 import com.seeyoo.common.constant.UserConstants;
 import com.seeyoo.common.core.domain.entity.SysRole;
+import com.seeyoo.common.core.domain.entity.SysUser;
 import com.seeyoo.common.exception.CustomException;
+import com.seeyoo.common.exception.ServiceException;
+import com.seeyoo.common.utils.SecurityUtils;
 import com.seeyoo.common.utils.StringUtils;
-import com.seeyoo.common.utils.spring.SpringUtils;
 import com.seeyoo.system.domain.SysRoleDept;
 import com.seeyoo.system.domain.SysRoleMenu;
+import com.seeyoo.system.domain.SysUserRole;
 import com.seeyoo.system.mapper.SysRoleDeptMapper;
 import com.seeyoo.system.mapper.SysRoleMapper;
 import com.seeyoo.system.mapper.SysRoleMenuMapper;
@@ -118,7 +122,7 @@ public class SysRoleServiceImpl implements ISysRoleService
      * @return 选中角色ID列表
      */
     @Override
-    public List<Integer> selectRoleListByUserId(Long userId)
+    public List<Long> selectRoleListByUserId(Long userId)
     {
         return roleMapper.selectRoleListByUserId(userId);
     }
@@ -348,5 +352,72 @@ public class SysRoleServiceImpl implements ISysRoleService
         // 删除角色与部门关联
         roleDeptMapper.deleteRoleDept(roleIds);
         return roleMapper.deleteRoleByIds(roleIds);
+    }
+
+    /**
+     * 取消授权用户角色
+     *
+     * @param userRole 用户和角色关联信息
+     * @return 结果
+     */
+    @Override
+    public int deleteAuthUser(SysUserRole userRole)
+    {
+        return userRoleMapper.deleteUserRoleInfo(userRole);
+    }
+
+    /**
+     * 批量取消授权用户角色
+     *
+     * @param roleId 角色ID
+     * @param userIds 需要取消授权的用户数据ID
+     * @return 结果
+     */
+    @Override
+    public int deleteAuthUsers(Long roleId, Long[] userIds)
+    {
+        return userRoleMapper.deleteUserRoleInfos(roleId, userIds);
+    }
+
+    /**
+     * 批量选择授权用户角色
+     *
+     * @param roleId 角色ID
+     * @param userIds 需要授权的用户数据ID
+     * @return 结果
+     */
+    @Override
+    public int insertAuthUsers(Long roleId, Long[] userIds)
+    {
+        // 新增用户与角色管理
+        List<SysUserRole> list = new ArrayList<SysUserRole>();
+        for (Long userId : userIds)
+        {
+            SysUserRole ur = new SysUserRole();
+            ur.setUserId(userId);
+            ur.setRoleId(roleId);
+            list.add(ur);
+        }
+        return userRoleMapper.batchUserRole(list);
+    }
+
+    /**
+     * 校验角色是否有数据权限
+     *
+     * @param roleId 角色id
+     */
+    @Override
+    public void checkRoleDataScope(Long roleId)
+    {
+        if (!SysUser.isAdmin(SecurityUtils.getUserId()))
+        {
+            SysRole role = new SysRole();
+            role.setRoleId(roleId);
+            List<SysRole> roles = SpringUtils.getAopProxy(this).selectRoleList(role);
+            if (StringUtils.isEmpty(roles))
+            {
+                throw new ServiceException("没有权限访问角色数据！");
+            }
+        }
     }
 }

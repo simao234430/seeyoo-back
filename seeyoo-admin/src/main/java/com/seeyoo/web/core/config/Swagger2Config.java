@@ -3,7 +3,7 @@ package com.seeyoo.web.core.config;
 
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.service.*;
+import springfox.documentation.service.ApiInfo;
 
 @Configuration
 public class Swagger2Config  {

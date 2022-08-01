@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/seeyoo-common/seeyoo-common.iml" filepath="$PROJECT_DIR$/seeyoo-common/seeyoo-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/seeyoo-quartz/seeyoo-quartz.iml" filepath="$PROJECT_DIR$/seeyoo-quartz/seeyoo-quartz.iml" />
     </modules>
   </component>
 </project>

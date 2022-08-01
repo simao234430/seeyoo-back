@@ -11,6 +11,7 @@
         <module name="seeyoo-admin" />
         <module name="seeyoo-framework" />
         <module name="seeyoo-common" />
+        <module name="seeyoo-quartz" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,6 +20,7 @@
       <module name="seeyoo-admin" options="-parameters" />
       <module name="seeyoo-common" options="-parameters" />
       <module name="seeyoo-framework" options="-parameters" />
+      <module name="seeyoo-quartz" options="-parameters" />
       <module name="seeyoo-system" options="-parameters" />
     </option>
   </component>
