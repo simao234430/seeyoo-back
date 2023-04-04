@@ -91,7 +91,7 @@ public class SysProfileController extends BaseController
     {
         LoginUser loginUser = getLoginUser();
         String userName = loginUser.getUsername();
-        String password = loginUser.getPassword();
+        String password = userService.selectUserById(loginUser.getUser().getUserId()).getPassword();
         if (!SecurityUtils.matchesPassword(oldPassword, password))
         {
             return AjaxResult.error("修改密码失败，旧密码错误");

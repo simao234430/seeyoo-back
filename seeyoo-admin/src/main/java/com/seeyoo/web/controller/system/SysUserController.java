@@ -6,11 +6,13 @@ import com.seeyoo.common.core.controller.BaseController;
 import com.seeyoo.common.core.domain.AjaxResult;
 import com.seeyoo.common.core.domain.entity.SysRole;
 import com.seeyoo.common.core.domain.entity.SysUser;
+import com.seeyoo.common.core.domain.entity.SysDept;
 import com.seeyoo.common.core.page.TableDataInfo;
 import com.seeyoo.common.enums.BusinessType;
 import com.seeyoo.common.utils.SecurityUtils;
 import com.seeyoo.common.utils.StringUtils;
 import com.seeyoo.common.utils.poi.ExcelUtil;
+import com.seeyoo.system.service.ISysDeptService;
 import com.seeyoo.system.service.ISysPostService;
 import com.seeyoo.system.service.ISysRoleService;
 import com.seeyoo.system.service.ISysUserService;
@@ -42,6 +44,9 @@ public class SysUserController extends BaseController
 
     @Autowired
     private ISysPostService postService;
+
+    @Autowired
+    private ISysDeptService deptService;
 
     /**
      * 获取用户列表
@@ -227,5 +232,15 @@ public class SysUserController extends BaseController
         userService.checkUserDataScope(userId);
         userService.insertUserAuth(userId, roleIds);
         return success();
+    }
+
+    /**
+     * 获取部门树列表
+     */
+    @PreAuthorize("@ss.hasPermi('system:user:list')")
+    @GetMapping("/deptTree")
+    public AjaxResult deptTree(SysDept dept)
+    {
+        return success(deptService.selectDeptTreeList(dept));
     }
 }

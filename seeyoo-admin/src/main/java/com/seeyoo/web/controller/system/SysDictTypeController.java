@@ -55,6 +55,7 @@ public class SysDictTypeController extends BaseController
     @GetMapping(value = "/{dictId}")
     public AjaxResult getInfo(@PathVariable Long dictId)
     {
+
         return AjaxResult.success(dictTypeService.selectDictTypeById(dictId));
     }
 

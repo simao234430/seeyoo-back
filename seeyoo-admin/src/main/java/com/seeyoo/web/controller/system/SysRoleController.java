@@ -14,6 +14,7 @@ import com.seeyoo.common.utils.poi.ExcelUtil;
 import com.seeyoo.framework.web.service.SysPermissionService;
 import com.seeyoo.framework.web.service.TokenService;
 import com.seeyoo.system.domain.SysUserRole;
+import com.seeyoo.system.service.ISysDeptService;
 import com.seeyoo.system.service.ISysRoleService;
 import com.seeyoo.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ import java.util.List;
 @RequestMapping("/system/role")
 public class SysRoleController extends BaseController
 {
+    @Autowired
+    private ISysDeptService deptService;
+
     @Autowired
     private ISysRoleService roleService;
 
@@ -236,4 +240,18 @@ public class SysRoleController extends BaseController
         roleService.checkRoleDataScope(roleId);
         return toAjax(roleService.insertAuthUsers(roleId, userIds));
     }
+
+    /**
+     * 获取对应角色部门树列表
+     */
+    @PreAuthorize("@ss.hasPermi('system:role:query')")
+    @GetMapping(value = "/deptTree/{roleId}")
+    public AjaxResult deptTree(@PathVariable("roleId") Long roleId)
+    {
+        AjaxResult ajax = AjaxResult.success();
+        ajax.put("checkedKeys", deptService.selectDeptListByRoleId(roleId));
+        ajax.put("depts", deptService.selectDeptTreeList(new com.seeyoo.common.core.domain.entity.SysDept()));
+        return ajax;
+    }
+
 }

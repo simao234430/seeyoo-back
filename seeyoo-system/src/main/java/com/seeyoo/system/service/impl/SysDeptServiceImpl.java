@@ -36,9 +36,10 @@ public class SysDeptServiceImpl implements ISysDeptService
     @Autowired
     private SysRoleMapper roleMapper;
 
+
     /**
      * 查询部门管理数据
-     * 
+     *
      * @param dept 部门信息
      * @return 部门信息集合
      */
@@ -50,8 +51,28 @@ public class SysDeptServiceImpl implements ISysDeptService
     }
 
     /**
+     * 查询部门树结构信息
+     *
+     * @param dept 部门信息
+     * @return 部门树信息集合
+     */
+    @Override
+    public List<TreeSelect> selectDeptTreeList(SysDept dept)
+    {
+        List<SysDept> depts = selectDeptList(dept);
+        return buildDeptTreeSelect(depts);
+    }
+    /**
+     * 查询部门树结构信息
+     *
+     * @param dept 部门信息
+     * @return 部门树信息集合
+     */
+
+
+    /**
      * 构建前端所需要树结构
-     * 
+     *
      * @param depts 部门列表
      * @return 树结构列表
      */
@@ -59,11 +80,7 @@ public class SysDeptServiceImpl implements ISysDeptService
     public List<SysDept> buildDeptTree(List<SysDept> depts)
     {
         List<SysDept> returnList = new ArrayList<SysDept>();
-        List<Long> tempList = new ArrayList<Long>();
-        for (SysDept dept : depts)
-        {
-            tempList.add(dept.getDeptId());
-        }
+        List<Long> tempList = depts.stream().map(SysDept::getDeptId).collect(Collectors.toList());
         for (SysDept dept : depts)
         {
             // 如果是顶级节点, 遍历该父节点的所有子节点
@@ -82,7 +99,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 构建前端所需要下拉树结构
-     * 
+     *
      * @param depts 部门列表
      * @return 下拉树结构列表
      */
@@ -95,7 +112,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 根据角色ID查询部门树信息
-     * 
+     *
      * @param roleId 角色ID
      * @return 选中部门列表
      */
@@ -108,7 +125,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 根据部门ID查询信息
-     * 
+     *
      * @param deptId 部门ID
      * @return 部门信息
      */
@@ -120,7 +137,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 根据ID查询所有子部门（正常状态）
-     * 
+     *
      * @param deptId 部门ID
      * @return 子部门数
      */
@@ -132,7 +149,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 是否存在子节点
-     * 
+     *
      * @param deptId 部门ID
      * @return 结果
      */
@@ -145,7 +162,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 查询部门是否存在用户
-     * 
+     *
      * @param deptId 部门ID
      * @return 结果 true 存在 false 不存在
      */
@@ -158,7 +175,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 校验部门名称是否唯一
-     * 
+     *
      * @param dept 部门信息
      * @return 结果
      */
@@ -176,7 +193,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 校验部门是否有数据权限
-     * 
+     *
      * @param deptId 部门id
      */
     @Override
@@ -196,7 +213,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 新增保存部门信息
-     * 
+     *
      * @param dept 部门信息
      * @return 结果
      */
@@ -215,7 +232,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 修改保存部门信息
-     * 
+     *
      * @param dept 部门信息
      * @return 结果
      */
@@ -243,7 +260,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 修改该部门的父级部门状态
-     * 
+     *
      * @param dept 当前部门
      */
     private void updateParentDeptStatusNormal(SysDept dept)
@@ -255,7 +272,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 修改子元素关系
-     * 
+     *
      * @param deptId 被修改的部门ID
      * @param newAncestors 新的父ID集合
      * @param oldAncestors 旧的父ID集合
@@ -275,7 +292,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 删除部门管理信息
-     * 
+     *
      * @param deptId 部门ID
      * @return 结果
      */

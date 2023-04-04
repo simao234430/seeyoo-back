@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 public class SysLoginService
 {
     @Autowired
-    private TokenService tokenService;
+    private com.seeyoo.framework.web.service.TokenService tokenService;
 
     @Resource
     private AuthenticationManager authenticationManager;
